@@ -948,6 +948,30 @@ footer {
   color: #666;
 }
 
+.flyer-status.preparing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  color: #888;
+}
+
+.status-spinner {
+  width: 0.72em;
+  height: 0.72em;
+  flex-shrink: 0;
+  border: 1.5px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: status-spin 0.85s linear infinite;
+}
+
+@keyframes status-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 .flyer-date {
   font-family: var(--font-poster);
   font-size: 1.05rem;

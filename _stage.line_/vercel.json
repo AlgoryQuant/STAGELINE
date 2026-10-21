@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+
+    { "source": "/home", "destination": "/", "permanent": false },
+    { "source": "/home.html", "destination": "/", "permanent": false },
+
+    { "source": "/akce", "destination": "/", "permanent": false },
+    { "source": "/akce.html", "destination": "/", "permanent": false },
+
+    { "source": "/kms-night", "destination": "/", "permanent": false },
+    { "source": "/kms-night.html", "destination": "/", "permanent": false },
+
+    { "source": "/ig-kms", "destination": "/", "permanent": false },
+    { "source": "/ig-kms.html", "destination": "/", "permanent": false },
+
+    { "source": "/:path*.html", "destination": "/", "permanent": false }
+  ]
+}
