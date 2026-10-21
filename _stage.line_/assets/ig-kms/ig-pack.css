@@ -1,0 +1,534 @@
+/* StageLine — KMS Night IG pack (export frames) */
+:root {
+  --bg: #050505;
+  --ink: #f2f2f2;
+  --muted: #9a9a9a;
+  --soft: #111;
+  --font-display: "Anton", Impact, sans-serif;
+  --font-poster: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0a0a0a;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.4;
+}
+
+.pack {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.pack-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.pack-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.pack-nav a:hover {
+  opacity: 1;
+}
+
+.pack-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+.pack-lead {
+  color: var(--muted);
+  max-width: 42rem;
+  margin: 0.75rem 0 2rem;
+}
+
+.pack-section {
+  margin: 2.5rem 0;
+}
+
+.pack-section h2 {
+  font-family: var(--font-poster);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.pack-section p.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.gallery figure {
+  background: #111;
+  border: 1px solid #222;
+  padding: 0.75rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+}
+
+.gallery figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gallery a.download {
+  display: inline-block;
+  margin-top: 0.4rem;
+  color: #fff;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.frames {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.frame-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.frame-wrap label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ——— Export canvases ——— */
+.grain-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.story {
+  position: relative;
+  width: 360px;
+  height: 640px;
+  background: #050505;
+  color: #f2f2f2;
+  overflow: hidden;
+  border: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 22px 24px;
+}
+
+.story .kicker {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #aaa;
+  text-align: center;
+}
+
+.story .title-kms {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: 92px;
+  line-height: 0.82;
+  text-align: center;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 0 1px #fff, 2px 2px 0 #000;
+}
+
+.story .title-night {
+  font-family: var(--font-poster);
+  font-size: 48px;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.story .date {
+  margin-top: 28px;
+  font-family: var(--font-poster);
+  font-size: 36px;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.story .headliner {
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 0.9;
+  text-align: center;
+  letter-spacing: 0.02em;
+  margin-top: 4px;
+}
+
+.story .wire {
+  height: 1px;
+  background: #e8e8e8;
+  margin: 16px 0 12px;
+  opacity: 0.85;
+}
+
+.story .lineup {
+  font-family: var(--font-poster);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-align: center;
+  line-height: 1.45;
+  color: #ddd;
+  text-transform: uppercase;
+}
+
+.story .venue {
+  margin-top: auto;
+  padding-top: 16px;
+  text-align: center;
+}
+
+.story .venue strong {
+  display: block;
+  font-family: var(--font-poster);
+  font-size: 28px;
+  letter-spacing: 0.1em;
+}
+
+.story .venue span {
+  display: block;
+  font-family: var(--font-poster);
+  font-size: 18px;
+  letter-spacing: 0.16em;
+  color: #bbb;
+  margin-top: 2px;
+}
+
+.story .credit {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #777;
+}
+
+/* Story B — date focus */
+.story-b .big-date {
+  font-family: var(--font-display);
+  font-size: 118px;
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  margin-top: 28px;
+}
+
+.story-b .bar {
+  margin-top: 8px;
+  background: #fff;
+  color: #050505;
+  text-align: center;
+  font-family: var(--font-poster);
+  font-size: 28px;
+  letter-spacing: 0.14em;
+  padding: 8px 10px;
+}
+
+.story-b .bar-og {
+  margin-top: 10px;
+  background: #fff;
+  color: #050505;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 56px;
+  letter-spacing: 0.04em;
+  padding: 6px 10px 4px;
+  line-height: 1;
+}
+
+.story-b .venue-inline {
+  margin-top: 14px;
+  font-family: var(--font-poster);
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  color: #ccc;
+}
+
+.story-b .lineup-list {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 12px;
+  font-family: var(--font-poster);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #cfcfcf;
+}
+
+.story-b .credit {
+  margin-top: auto;
+  text-align: right;
+}
+
+/* Feed */
+.feed {
+  position: relative;
+  width: 360px;
+  height: 450px;
+  background: #050505;
+  color: #f2f2f2;
+  overflow: hidden;
+  border: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 22px 20px;
+}
+
+.feed .kicker {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #aaa;
+  text-align: center;
+}
+
+.feed .title-kms {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: 78px;
+  line-height: 0.82;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.feed .title-night {
+  font-family: var(--font-poster);
+  font-size: 40px;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.feed .wire {
+  height: 2px;
+  background: #fff;
+  margin: 14px 0;
+  opacity: 0.9;
+}
+
+.feed .date {
+  font-family: var(--font-poster);
+  font-size: 32px;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.feed .headliner {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 0.9;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.feed .lineup {
+  font-family: var(--font-poster);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1.4;
+  color: #ddd;
+  text-transform: uppercase;
+}
+
+.feed .venue-bar {
+  margin-top: auto;
+  background: #fff;
+  color: #050505;
+  text-align: center;
+  padding: 10px 8px 8px;
+}
+
+.feed .venue-bar strong {
+  display: block;
+  font-family: var(--font-poster);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+}
+
+.feed .venue-bar span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 3px;
+  opacity: 0.7;
+}
+
+/* Highlight cover */
+.cover {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  background: #050505;
+  border: 1px solid #222;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.cover-inner {
+  text-align: center;
+  z-index: 1;
+}
+
+.cover .title-kms {
+  font-family: var(--font-display);
+  font-size: 92px;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.cover .title-night {
+  font-family: var(--font-poster);
+  font-size: 28px;
+  letter-spacing: 0.22em;
+  margin-top: 6px;
+}
+
+.cover .cover-date {
+  margin-top: 18px;
+  font-family: var(--font-poster);
+  font-size: 22px;
+  letter-spacing: 0.14em;
+  line-height: 1.15;
+}
+
+.cover .cover-date span {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: #bbb;
+  margin-top: 2px;
+}
+
+.cover-preview {
+  margin-top: 1rem;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #333;
+  background: #050505;
+  display: grid;
+  place-items: center;
+}
+
+.cover-preview span {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+  text-align: center;
+}
+
+.cover-preview small {
+  display: block;
+  font-family: var(--font-poster);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  margin-top: 2px;
+}
+
+.cover-preview .cover-preview-date {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  margin-top: 3px;
+  opacity: 0.9;
+}
+
+.caption-box {
+  background: #111;
+  border: 1px solid #222;
+  padding: 1rem 1.1rem;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  color: #ddd;
+  max-width: 40rem;
+}
+
+@media (min-width: 900px) {
+  .story {
+    width: 405px;
+    height: 720px;
+    padding: 32px 26px 28px;
+  }
+
+  .story .title-kms {
+    font-size: 104px;
+  }
+
+  .story .headliner {
+    font-size: 80px;
+  }
+
+  .story-b .big-date {
+    font-size: 132px;
+  }
+
+  .feed {
+    width: 405px;
+    height: 506px;
+  }
+
+  .feed .title-kms {
+    font-size: 88px;
+  }
+
+  .feed .headliner {
+    font-size: 72px;
+  }
+}
